@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>출판사 여기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1714;
+      --paper: #f5f1eb;
+      --warm-gray: #8a8480;
+      --light-line: #ddd8d0;
+      --accent: #b5956a;
+      --accent-soft: #e8dfd0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      letter-spacing: 0.01em;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: multiply;
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-headline {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1.35;
+      color: var(--ink);
+      max-width: 14em;
+      opacity: 0;
+      animation: fadeUp 1.1s ease 0.5s forwards;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      max-width: 36em;
+      opacity: 0;
+      animation: fadeUp 1.1s ease 0.8s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 10vw;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--light-line);
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      padding: 10rem 10vw;
+      position: relative;
+    }
+
+    section + section {
+      border-top: 1px solid var(--light-line);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ─── ABOUT ─── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 8vw;
+      align-items: start;
+    }
+
+    #about .about-heading {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.6;
+      color: var(--ink);
+      position: sticky;
+      top: 12rem;
+    }
+
+    #about .about-body {
+      font-size: 0.92rem;
+      color: var(--ink);
+      line-height: 2.1;
+    }
+
+    #about .about-body p + p {
+      margin-top: 1.8em;
+    }
+
+    .pullquote {
+      margin: 3rem 0;
+      padding-left: 2rem;
+      border-left: 2px solid var(--accent);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    /* ─── 함께쓰기 ─── */
+    #writing {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    #writing .section-label {
+      color: var(--accent);
+    }
+
+    #writing .section-label::after {
+      background: var(--accent);
+    }
+
+    .writing-heading {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.5;
+      margin-bottom: 4rem;
+      max-width: 20em;
+    }
+
+    .writing-heading em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .project-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #2a2826;
+      border: 1px solid #2a2826;
+      margin-top: 5rem;
+    }
+
+    .project-card {
+      background: var(--ink);
+      padding: 3rem 2.5rem;
+      transition: background 0.4s ease;
+    }
+
+    .project-card:hover {
+      background: #201e1c;
+    }
+
+    .card-num {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #4a4846;
+      margin-bottom: 2rem;
+    }
+
+    .card-title {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: var(--paper);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: #7a7874;
+      line-height: 1.9;
+    }
+
+    .writing-footer {
+      margin-top: 5rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .writing-footer p {
+      font-size: 0.85rem;
+      color: #7a7874;
+      max-width: 36em;
+      line-height: 2;
+    }
+
+    /* ─── BOOKS ─── */
+    #books {
+      text-align: center;
+    }
+
+    .books-heading {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--ink);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .books-note {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 2;
+      max-width: 28em;
+      margin: 0 auto 5rem;
+    }
+
+    .books-placeholder {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      border: 1px solid var(--light-line);
+      padding: 5rem 3rem;
+      position: relative;
+    }
+
+    .books-placeholder::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 3rem;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .books-placeholder-text {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      color: var(--light-line);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8vw;
+      align-items: end;
+    }
+
+    .contact-left .contact-heading {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .contact-left p {
+      font-size: 0.88rem;
+      color: var(--warm-gray);
+      line-height: 2.1;
+      max-width: 30em;
+    }
+
+    .contact-right {
+      padding-bottom: 0.5rem;
+    }
+
+    .contact-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--light-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .contact-item:first-child {
+      border-top: 1px solid var(--light-line);
+    }
+
+    .contact-item-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+    }
+
+    .contact-item-value {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .contact-item-value a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-item-value a:hover {
+      color: var(--accent);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--light-line);
+      padding: 3rem 10vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .footer-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+    }
+
+    footer .footer-copy {
+      font-size: 0.72rem;
+      color: var(--light-line);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── DECORATIVE LINE ─── */
+    .deco-line {
+      position: absolute;
+      right: 10vw;
+      top: 50%;
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--light-line);
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1.5rem 2rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      section {
+        padding: 6rem 6vw;
+      }
+
+      #hero {
+        padding: 0 6vw;
+      }
+
+      .hero-scroll {
+        left: 6vw;
+      }
+
+      #about .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      #about .about-heading {
+        position: static;
+      }
+
+      .project-cards {
+        grid-template-columns: 1fr;
+      }
+
+      #contact {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 2.5rem 6vw;
+      }
+
+      .deco-line {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">출판사 여기</a>
+    <ul class="nav-links">
+      <li><a href="#about">소개</a></li>
+      <li><a href="#writing">함께쓰기</a></li>
+      <li><a href="#books">책</a></li>
+      <li><a href="#contact">연락</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">출판사 여기 — 함께 쓰는 출판사</p>
+    <h1 class="hero-headline">
+      글을 쓰는 일은<br>
+      <em>누군가에게 닿으려는</em><br>
+      가장 오래된 방법이다.
+    </h1>
+    <p class="hero-sub">
+      쓰는 사람과 읽는 사람이 함께 만드는 출판사.<br>
+      여기에서, 지금, 함께.
+    </p>
+    <span class="hero-scroll">scroll</span>
+    <span class="deco-line">여기 / HERE / 2024</span>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label reveal">ABOUT</p>
+    <div class="about-grid">
+      <div class="about-heading reveal">
+        글을 쓴다는 것,<br>
+        그것이 이 출판사를<br>
+        시작하게 했다.
+      </div>
+      <div class="about-body reveal">
+        <p>
+          출판사 여기는 한 편의 글에서 시작됐습니다. 쓰고 싶었지만 어디에도 내놓을 곳이 없다고 느꼈던 사람들, 읽고 싶었지만 닿을 수 있는 글이 없다고 느꼈던 사람들이 모였습니다.
+        </p>
+        <div class="pullquote reveal">
+          "글이 세상에 나오기 위해서는 쓰는 사람만큼이나<br>
+          읽어주는 사람이 필요하다."
+        </div>
+        <p>
+          우리는 완성된 원고를 기다리는 출판사가 아닙니다. 쓰는 과정 그 자체를 함께하는 출판사입니다. 초고가 두렵고 마감이 낯선 사람들 곁에서, 한 문장 한 문장 같이 걷겠습니다.
+        </p>
+        <p>
+          글을 쓰고 누군가 그 글을 읽어주는 것의 힘을 믿습니다. 출판사 여기는 그 믿음 위에 세워졌습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 함께쓰기 -->
+  <section id="writing">
+    <p class="section-label reveal">함께쓰기 / 일일일작 프로젝트</p>
+    <h2 class="writing-heading reveal">
+      하루에 하나.<br>
+      <em>일일일작(一日一作).</em>
+    </h2>
+
+    <div class="project-cards">
+      <div class="project-card reveal">
+        <p class="card-num">01</p>
+        <h3 class="card-title">매일 쓰기</h3>
+        <p class="card-desc">하루에 한 편의 글을 씁니다. 길지 않아도 됩니다. 짧아도 됩니다. 쓴다는 행위 자체가 오늘의 목표입니다.</p>
+      </div>
+      <div class="project-card reveal">
+        <p class="card-num">02</p>
+        <h3 class="card-title">함께 읽기</h3>
+        <p class="card-desc">쓴 글을 혼자 두지 않습니다. 참여자들이 서로의 글을 읽고, 짧은 한 줄로 응답합니다. 읽혔다는 것을 확인하는 일.</p>
+      </div>
+      <div class="project-card reveal">
+        <p class="card-num">03</p>
+        <h3 class="card-title">모아 엮기</h3>
+        <p class="card-desc">한 달, 혹은 한 계절이 지나면 쓴 글들을 모아 작은 책으로 엮습니다. 당신의 글이 책이 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="writing-footer">
+      <p class="reveal">
+        일일일작은 출판사 여기가 운영하는 글쓰기 프로젝트입니다. 작가가 아니어도, 잘 쓰지 못해도 괜찮습니다. 쓰고 싶다는 마음 하나면 충분합니다. 다음 기수 모집 소식은 메일로 가장 먼저 보내드립니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- BOOKS -->
+  <section id="books">
+    <p class="section-label reveal" style="justify-content: center;">BOOKS</p>
+    <h2 class="books-heading reveal">여기에서 나온 책들</h2>
+    <p class="books-note reveal">
+      출판사 여기의 첫 번째 책을 준비하고 있습니다.<br>
+      곧 이 자리를 채울 이야기들이 오고 있습니다.
+    </p>
+    <div class="books-placeholder reveal">
+      <p class="books-placeholder-text">Coming soon —</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-left">
+      <p class="section-label reveal">CONTACT</p>
+      <h2 class="contact-heading reveal">
+        글을 쓰고 싶다면,<br>
+        혹은 함께하고 싶다면.
+      </h2>
+      <p class="reveal">
+        원고 투고, 프로젝트 협업, 일일일작 참여 문의 등 무엇이든 편하게 연락주세요. 모든 메일에 직접 답장합니다.
+      </p>
+    </div>
+    <div class="contact-right reveal">
+      <div class="contact-item">
+        <span class="contact-item-label">이메일</span>
+        <span class="contact-item-value">
+          <a href="mailto:hello@yeogi.kr">hello@yeogi.kr</a>
+        </span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">인스타그램</span>
+        <span class="contact-item-value">
+          <a href="#" target="_blank">@yeogi.books</a>
+        </span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">위치</span>
+        <span class="contact-item-value">서울, 대한민국</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">뉴스레터</span>
+        <span class="contact-item-value">
+          <a href="#">구독하기 →</a>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">출판사 여기</span>
+    <span class="footer-copy">© 2024 출판사 여기. 함께 쓰는 출판사.</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger cards
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.12}s`;
+    });
+  </script>
+
+</body>
+</html>
