@@ -346,7 +346,7 @@ footer a:hover{color:var(--accent-ink);border-color:var(--accent)}
 
     <div class="savebar">
       <button class="btn primary" id="saveBtn">저장</button>
-      <button class="btn sm" id="notionBtn">노션으로 보내기</button>
+      <button class="btn sm" id="shareBtn">공유하기</button>
       <button class="btn ghost sm" id="newBtn">새로 쓰기</button>
       <span class="status" id="saveStatus"></span>
     </div>
@@ -418,13 +418,12 @@ footer a:hover{color:var(--accent-ink);border-color:var(--accent)}
       <hr class="rule" style="margin:8px 0">
 
       <div class="field">
-        <span class="label">노션으로 보내기</span>
-        <p class="note" style="margin:0 0 10px">
-          쓴 글을 노션에 모으고 싶다면, 아래에 <b>내 노션 페이지 주소</b>를 넣어두세요.
-          ‘오늘’ 화면의 <b>노션으로 보내기</b>를 누르면 글이 복사되고 그 페이지가 열립니다. 붙여넣기만 하면 됩니다.
-          사진은 따로 내려받아 끌어다 놓으세요.
+        <span class="label">대화방에 올리기</span>
+        <p class="note" style="margin:0">
+          ‘오늘’ 화면의 <b>공유하기</b>를 누르면 글과 사진이 함께 넘어갑니다.
+          휴대폰에서는 카카오톡을 골라 대화방에 바로 올릴 수 있고,
+          컴퓨터에서는 글이 복사되니 붙여넣기만 하면 됩니다.
         </p>
-        <input type="text" id="notionUrl" placeholder="https://www.notion.so/... 또는 공유 폼 주소">
       </div>
 
       <hr class="rule" style="margin:8px 0">
@@ -880,7 +879,6 @@ async function renderBook(){
   $("#bookTitle").value = await getMeta("bookTitle") || "";
   $("#bookAuthor").value = await getMeta("bookAuthor") || "";
   $("#bookIntro").value = await getMeta("bookIntro") || "";
-  $("#notionUrl").value = await getMeta("notionUrl") || "";
 
   const asc = [...ENTRIES].sort((a,b) => a.date.localeCompare(b.date) || a.createdAt - b.createdAt);
   const ids = asc.map(e => e.id);
@@ -948,16 +946,14 @@ function paintCover(){
 });
 $("#tagFilter").addEventListener("change", () => { paintToc(); paintCover(); });
 
-/* ── 노션으로 보내기 ──────────────────────────────────────
-   Notion API 토큰을 이 파일에 넣으면 소스를 여는 누구나 워크스페이스를
-   조작할 수 있으므로, 토큰 없이 되는 방식만 씁니다:
-   글을 마크다운으로 클립보드에 복사하고 지정한 노션 페이지를 엽니다.        */
-function toMarkdown(e){
-  const lines = [`# ${titleOf(e)}`, "", `${e.date.replace(/-/g,". ")}`, ""];
-  if(e.prompt) lines.push(`> ${e.prompt}`, "");
-  lines.push(e.body.trim(), "");
-  if(e.photos?.length) lines.push(`_사진 ${e.photos.length}장은 따로 첨부해주세요._`, "");
-  if(e.tags?.length) lines.push(e.tags.map(t => "#" + t).join(" "));
+/* ── 공유하기 ─────────────────────────────────────────────
+   휴대폰에서는 기기의 공유 시트를 띄워 카카오톡 등으로 바로 보내고,
+   지원하지 않는 브라우저에서는 글을 클립보드에 복사한다.            */
+function toShareText(e){
+  const lines = [titleOf(e), e.date.replace(/-/g,". "), ""];
+  if(e.prompt) lines.push(`— ${e.prompt}`, "");
+  lines.push(e.body.trim());
+  if(e.tags?.length) lines.push("", e.tags.map(t => "#" + t).join(" "));
   return lines.join("\n");
 }
 async function copyText(text){
@@ -973,28 +969,34 @@ async function copyText(text){
     return ok;
   }
 }
-$("#notionBtn").addEventListener("click", async () => {
+$("#shareBtn").addEventListener("click", async () => {
   syncBody();
   if(!cur.body.trim() && !cur.title.trim()){ toast("먼저 글을 써주세요"); return; }
   clearTimeout(saveTimer); await commit(true);
 
-  const ok = await copyText(toMarkdown(cur));
-  if(!ok){ toast("복사하지 못했습니다. 글을 직접 선택해 복사해주세요."); return; }
+  const text = toShareText(cur);
+  const files = (cur.photos || []).map((p, i) =>
+    new File([p.blob], `${cur.date}-${pad(i+1)}.jpg`, {type:"image/jpeg"}));
 
-  // 사진이 있으면 기기에 내려받아 노션에 끌어다 놓을 수 있게 함
+  // 1) 사진까지 함께 공유
+  if(files.length && navigator.canShare && navigator.canShare({files})){
+    try{ await navigator.share({text, files}); return; }
+    catch(err){ if(err.name === "AbortError") return; }
+  }
+  // 2) 글만 공유
+  if(navigator.share){
+    try{ await navigator.share({text}); return; }
+    catch(err){ if(err.name === "AbortError") return; }
+  }
+  // 3) 공유를 지원하지 않으면 복사 + 사진 내려받기
+  const ok = await copyText(text);
   (cur.photos || []).forEach((p, i) => {
     setTimeout(() => download(p.blob, `${cur.date}-${pad(i+1)}.jpg`), i * 400);
   });
-
-  const url = await getMeta("notionUrl");
-  if(!url){
-    toast("글을 복사했습니다. ‘책’ 화면에서 노션 페이지 주소를 넣어두면 바로 열립니다.");
-    return;
-  }
-  window.open(url, "_blank", "noopener");
-  toast(cur.photos?.length ? "글을 복사했고 사진도 내려받았습니다" : "글을 복사했습니다. 노션에 붙여넣으세요.");
+  toast(ok
+    ? (cur.photos?.length ? "글을 복사했고 사진도 내려받았습니다" : "글을 복사했습니다. 붙여넣으세요.")
+    : "복사하지 못했습니다. 글을 직접 선택해 복사해주세요.");
 });
-$("#notionUrl").addEventListener("input", e => setMeta("notionUrl", e.target.value.trim()));
 $("#selAll").addEventListener("click", () => { visibleIds().forEach(id => bookPick.add(id)); paintToc(); paintCover(); });
 $("#selNone").addEventListener("click", () => { visibleIds().forEach(id => bookPick.delete(id)); paintToc(); paintCover(); });
 

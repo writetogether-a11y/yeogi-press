@@ -15,6 +15,8 @@
       --light-line: #ddd8d0;
       --accent: #b5956a;
       --accent-soft: #e8dfd0;
+      --accent-ink: #7d6339;
+      --card: #faf8f4;
     }
 
     *, *::before, *::after {
@@ -338,9 +340,19 @@
       font-size: 0.72rem;
       color: #6a6864;
       letter-spacing: 0.02em;
-      line-height: 1.8;
+      line-height: 1.9;
       max-width: none;
+      text-align: center;
     }
+
+    .try-link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(181, 149, 106, 0.35);
+      transition: border-color 0.3s;
+    }
+
+    .try-link:hover { border-bottom-color: var(--accent); }
 
     #books {
       text-align: center;
@@ -469,6 +481,311 @@
       letter-spacing: 0.05em;
     }
 
+    /* ── 진행 방식 ─────────────────────────────────── */
+    .how-block + .how-block { margin-top: 7rem; }
+
+    .how-block.split {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 8vw;
+      align-items: start;
+    }
+
+    .how-block.split .how-head { position: sticky; top: 12rem; }
+    .how-block.split .how-lead { margin-bottom: 0; }
+
+    .how-sub {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .how-lead {
+      font-size: 0.88rem;
+      color: var(--warm-gray);
+      line-height: 2.1;
+      max-width: 34em;
+      margin-bottom: 3rem;
+    }
+
+    .day-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.5rem;
+    }
+
+    .day-step .st-num {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .day-step h4 {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 0.7rem;
+    }
+
+    .day-step p {
+      font-size: 0.84rem;
+      color: var(--warm-gray);
+      line-height: 1.95;
+    }
+
+    .timeline {
+      border-left: 1px solid var(--light-line);
+      padding-left: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+    }
+
+    .tl-item { position: relative; }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.2rem;
+      top: 0.5em;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .tl-when {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+
+    .tl-title {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      margin: 0.45rem 0 0.5rem;
+    }
+
+    .tl-desc {
+      font-size: 0.84rem;
+      color: var(--warm-gray);
+      line-height: 1.95;
+      max-width: 34em;
+    }
+
+    /* ── 모집 ──────────────────────────────────────── */
+    .join-lead {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+      max-width: 20em;
+    }
+
+    .join-note {
+      font-size: 0.88rem;
+      color: var(--warm-gray);
+      line-height: 2.1;
+      max-width: 34em;
+      margin-bottom: 3.5rem;
+    }
+
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5vw;
+      align-items: start;
+    }
+
+    .spec { display: flex; flex-direction: column; }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 1.15rem 0;
+      border-bottom: 1px solid var(--light-line);
+    }
+
+    .spec-row:first-child { border-top: 1px solid var(--light-line); }
+
+    .spec-key {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--warm-gray);
+      white-space: nowrap;
+    }
+
+    .spec-val {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.92rem;
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    .spec-val small {
+      display: block;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.72rem;
+      color: var(--warm-gray);
+      margin-top: 0.2rem;
+    }
+
+    .apply-card {
+      background: var(--card);
+      border: 1px solid var(--light-line);
+      padding: 2.6rem 2.2rem;
+      position: relative;
+    }
+
+    .apply-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 2.2rem;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .apply-card h3 {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .apply-card p {
+      font-size: 0.84rem;
+      color: var(--warm-gray);
+      line-height: 1.95;
+      margin-bottom: 1.8rem;
+    }
+
+    .apply-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      width: 100%;
+      padding: 1.1rem 1.6rem;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      color: var(--paper);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+    }
+
+    .apply-btn:hover,
+    .apply-btn:focus-visible {
+      background: var(--accent-ink);
+      border-color: var(--accent-ink);
+      color: #fff;
+      outline: none;
+    }
+
+    .apply-btn:focus-visible { box-shadow: 0 0 0 3px rgba(181, 149, 106, 0.35); }
+
+    .apply-card .arrow { transition: transform 0.4s ease; }
+    .apply-card:hover .arrow { transform: translateX(5px); }
+
+    .apply-alt {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      margin-top: 1.2rem;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .apply-alt a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--light-line); }
+    .apply-alt a:hover { border-color: var(--accent); }
+
+    .honest {
+      margin-top: 4.5rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.8rem;
+      max-width: 40em;
+    }
+
+    .honest h4 {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .honest ul { list-style: none; }
+
+    .honest li {
+      font-size: 0.83rem;
+      color: var(--warm-gray);
+      line-height: 1.95;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .honest li + li { margin-top: 0.7rem; }
+
+    .honest li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ── FAQ ───────────────────────────────────────── */
+    .faq { margin-top: 4.5rem; max-width: 44em; }
+
+    .faq details {
+      border-bottom: 1px solid var(--light-line);
+    }
+
+    .faq details:first-of-type { border-top: 1px solid var(--light-line); }
+
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.3rem 2rem 1.3rem 0;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.95rem;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { color: var(--accent-ink); }
+
+    .faq summary::after {
+      content: '+';
+      position: absolute;
+      right: 0.2rem;
+      top: 1.15rem;
+      color: var(--accent);
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+    }
+
+    .faq details[open] summary::after { transform: rotate(45deg); }
+
+    .faq .ans {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 2.05;
+      padding: 0 2rem 1.6rem 0;
+    }
+
+    .faq .ans p + p { margin-top: 1em; }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
@@ -503,8 +820,20 @@
     }
 
     @media (max-width: 768px) {
-      nav { padding: 1.5rem 2rem; }
-      .nav-links { gap: 1.5rem; }
+      nav { padding: 1.5rem 1.4rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.72rem; letter-spacing: 0.02em; }
+      .day-steps { grid-template-columns: 1fr; gap: 2.4rem; }
+      .how-block.split { grid-template-columns: 1fr; gap: 2.5rem; }
+      .how-block.split .how-head { position: static; }
+      .how-block.split .how-lead { margin-bottom: 0; }
+      .join-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .timeline { padding-left: 1.6rem; }
+      .tl-item::before { left: -1.6rem; }
+      .spec-row { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+      .spec-val { text-align: left; }
+      .apply-card { padding: 2rem 1.5rem; }
+      .honest { padding-left: 1.3rem; }
       section { padding: 6rem 6vw; }
       #hero { padding: 0 6vw; }
       .hero-scroll { left: 6vw; }
@@ -527,7 +856,8 @@
     <ul class="nav-links">
       <li><a href="#about">소개</a></li>
       <li><a href="#writing">함께쓰기</a></li>
-      <li><a href="#books">책</a></li>
+      <li><a href="#how">진행 방식</a></li>
+      <li><a href="#join">참여하기</a></li>
       <li><a href="#contact">연락</a></li>
     </ul>
   </nav>
@@ -583,17 +913,17 @@
       <div class="project-card reveal">
         <p class="card-num">01</p>
         <h3 class="card-title">매일 쓰기</h3>
-        <p class="card-desc">하루에 한 편의 글을 씁니다. 길지 않아도 됩니다. 짧아도 됩니다. 쓴다는 행위 자체가 오늘의 목표입니다.</p>
+        <p class="card-desc">하루에 한 편. 세 줄이어도 됩니다. 그날의 질문이 하나 도착하고, 사진 한 장을 붙일 수 있습니다. 쓴다는 것 자체가 오늘의 목표입니다.</p>
       </div>
       <div class="project-card reveal">
         <p class="card-num">02</p>
         <h3 class="card-title">함께 읽기</h3>
-        <p class="card-desc">쓴 글을 혼자 두지 않습니다. 참여자들이 서로의 글을 읽고, 짧은 한 줄로 응답합니다. 읽혔다는 것을 확인하는 일.</p>
+        <p class="card-desc">쓴 글을 혼자 두지 않습니다. 열 명이 모인 대화방에 올리면 누군가 읽고 한 줄을 남깁니다. 읽혔다는 것을 확인하는 일.</p>
       </div>
       <div class="project-card reveal">
         <p class="card-num">03</p>
         <h3 class="card-title">모아 엮기</h3>
-        <p class="card-desc">한 달, 혹은 한 계절이 지나면 쓴 글들을 모아 작은 책으로 엮습니다. 당신의 글이 책이 됩니다.</p>
+        <p class="card-desc">30일이 끝나면 쓴 글과 사진을 모아 전자책 한 권으로 엮어 드립니다. 표지와 목차를 갖춘, 당신 이름이 적힌 책입니다.</p>
       </div>
     </div>
     <div class="writing-footer">
@@ -601,14 +931,212 @@
         일일일작은 출판사 여기가 운영하는 글쓰기 프로젝트입니다. 작가가 아니어도, 잘 쓰지 못해도 괜찮습니다. 쓰고 싶다는 마음 하나면 충분합니다. 다음 기수 모집 소식은 메일로 가장 먼저 보내드립니다.
       </p>
       <div class="write-cta-group reveal">
-        <a class="write-cta" href="/write.html">
-          오늘 쓰러 가기 <span class="arrow" aria-hidden="true">&#8594;</span>
+        <a class="write-cta" href="#join">
+          1기 신청하기 <span class="arrow" aria-hidden="true">&#8594;</span>
         </a>
         <p class="write-cta-note">
-          휴대폰으로 열고 &lsquo;홈 화면에 추가&rsquo;를 누르면<br>
-          앱처럼 아이콘으로 바로 열립니다.
+          <a class="try-link" href="/write.html">쓰는 곳 먼저 열어보기</a><br>
+          신청 전에 도구가 어떤지 직접 눌러보실 수 있습니다.
         </p>
       </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <p class="section-label reveal">진행 방식</p>
+
+    <div class="how-block">
+      <h3 class="how-sub reveal">하루는 이렇게 흘러갑니다.</h3>
+      <p class="how-lead reveal">
+        길어야 15분입니다. 출퇴근길이나 잠들기 전, 하루에 한 번만 시간을 내면 됩니다.
+      </p>
+      <div class="day-steps">
+        <div class="day-step reveal">
+          <p class="st-num">아침</p>
+          <h4>질문이 하나 도착합니다</h4>
+          <p>“오늘 당신을 잠깐 멈춰 세운 것은 무엇이었나요?” 같은 질문이 대화방에 올라옵니다. 하루를 그 질문을 품고 지냅니다. 무엇을 쓸지 고민하는 시간이 사라집니다.</p>
+        </div>
+        <div class="day-step reveal">
+          <p class="st-num">하루 중 언제든</p>
+          <h4>씁니다</h4>
+          <p>휴대폰 홈 화면의 아이콘을 누르면 바로 쓰는 화면이 열립니다. 키보드가 귀찮으면 말로 해도 됩니다. 그날의 사진 한 장을 붙일 수 있습니다.</p>
+        </div>
+        <div class="day-step reveal">
+          <p class="st-num">잠들기 전</p>
+          <h4>올립니다</h4>
+          <p>공유하기를 누르면 대화방으로 넘어갑니다. 누군가 읽고 한 줄을 남깁니다. 길지 않아도 됩니다. 읽혔다는 것만 확인되면 됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-block split">
+      <div class="how-head reveal">
+        <h3 class="how-sub">30일은 이렇게 흘러갑니다.</h3>
+        <p class="how-lead">
+          혼자 쓰면 사흘을 넘기기 어렵습니다. 그래서 마감과 사람을 함께 두었습니다.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <p class="tl-when">시작 전</p>
+          <h4 class="tl-title">준비는 5분이면 끝납니다</h4>
+          <p class="tl-desc">대화방 초대 링크를 보내드립니다. 휴대폰으로 쓰는 곳을 열고 ‘홈 화면에 추가’를 누르면 앱처럼 아이콘이 생깁니다. 설치할 것도, 가입할 것도 없습니다.</p>
+        </div>
+        <div class="tl-item reveal">
+          <p class="tl-when">1주차 · 1–7일</p>
+          <h4 class="tl-title">사흘을 넘기는 일</h4>
+          <p class="tl-desc">가장 어려운 구간입니다. 잘 쓰려고 하지 마세요. 세 줄이어도 올리는 것이 이 주의 목표입니다. 빠진 날이 있어도 다음 날 이어서 쓰면 됩니다.</p>
+        </div>
+        <div class="tl-item reveal">
+          <p class="tl-when">2주차 · 8–14일</p>
+          <h4 class="tl-title">나만 쓰는 이야기가 보입니다</h4>
+          <p class="tl-desc">글마다 테마를 붙여둡니다. 열흘쯤 쌓이면 자기도 몰랐던 반복이 드러납니다. 누군가는 밥 이야기를, 누군가는 길 위의 장면을 계속 쓰고 있습니다. 그게 그 사람의 주제입니다.</p>
+        </div>
+        <div class="tl-item reveal">
+          <p class="tl-when">3주차 · 15–21일</p>
+          <h4 class="tl-title">중간에 한 번 멈춰 봅니다</h4>
+          <p class="tl-desc">지금까지 쓴 글을 책 모양으로 미리 봅니다. 목차가 생기고 분량이 눈에 들어옵니다. 이때쯤 자기 책의 제목을 떠올리기 시작합니다.</p>
+        </div>
+        <div class="tl-item reveal">
+          <p class="tl-when">4주차 · 22–30일</p>
+          <h4 class="tl-title">묶습니다</h4>
+          <p class="tl-desc">담을 글을 고르고 순서를 정합니다. 이 책을 왜 묶게 되었는지 여는 글을 한 편 씁니다. 대개 30일 중 가장 오래 붙잡고 쓰는 글이 이것입니다.</p>
+        </div>
+        <div class="tl-item reveal">
+          <p class="tl-when">완주 후 · 1주 이내</p>
+          <h4 class="tl-title">책이 도착합니다</h4>
+          <p class="tl-desc">표지와 목차를 갖춘 전자책 파일을 메일로 보내드립니다. 휴대폰과 태블릿, 전자책 앱에서 열립니다. 원하시면 종이책 제작도 따로 상의할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <p class="section-label reveal">1기 모집</p>
+    <h2 class="join-lead reveal">
+      일일일작 <em style="font-style:normal;color:var(--accent);">1기</em>,<br>
+      열 명을 찾습니다.
+    </h2>
+    <p class="join-note reveal">
+      잘 쓰는 사람을 찾는 것이 아닙니다. 하루가 그냥 지나가는 게 아깝다고 느껴본 사람,
+      남겨두고 싶은데 어디에 남길지 몰랐던 사람을 찾습니다. 첫 기수라 열 명만 모십니다.
+    </p>
+
+    <div class="join-grid">
+      <div class="spec reveal">
+        <div class="spec-row">
+          <span class="spec-key">기간</span>
+          <span class="spec-val">2026년 9월 14일(월) — 10월 13일(화)<small>30일</small></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">모집 인원</span>
+          <span class="spec-val">10명<small>첫 기수라 소수로 시작합니다</small></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">모집 마감</span>
+          <span class="spec-val">9월 11일(금)<small>인원이 차면 일찍 마감될 수 있습니다</small></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">참가비</span>
+          <span class="spec-val">30,000원<small>하루 1,000원</small></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">하루 소요</span>
+          <span class="spec-val">5–15분</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">준비물</span>
+          <span class="spec-val">휴대폰과 카카오톡<small>그 외에 설치할 것은 없습니다</small></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">완주하면</span>
+          <span class="spec-val">내 이름이 적힌 전자책 한 권<small>표지·목차·사진이 들어간 EPUB 파일</small></span>
+        </div>
+      </div>
+
+      <div class="apply-card reveal">
+        <h3>신청은 메일 한 통</h3>
+        <p>
+          아래 버튼을 누르면 제목과 양식이 채워진 메일이 열립니다.
+          이름과 연락처만 채워 보내주세요. 확인 후 안내 메일과 대화방 초대 링크를 보내드립니다.
+        </p>
+        <a class="apply-btn" href="mailto:write.together@yeogi.press?subject=%5B%EC%9D%BC%EC%9D%BC%EC%9D%BC%EC%9E%91%201%EA%B8%B0%5D%20%EC%B0%B8%EA%B0%80%20%EC%8B%A0%EC%B2%AD&amp;body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20%EC%9D%BC%EC%9D%BC%EC%9D%BC%EC%9E%91%201%EA%B8%B0%EC%97%90%20%EC%B0%B8%EA%B0%80%ED%95%98%EA%B3%A0%20%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.%0A%0A%EC%9D%B4%EB%A6%84%20%3A%0A%EC%97%B0%EB%9D%BD%EC%B2%98%20%3A%0A%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EC%9D%B4%EB%A6%84%20%28%EB%8C%80%ED%99%94%EB%B0%A9%20%EC%B4%88%EB%8C%80%EC%9A%A9%29%20%3A%0A%0A%ED%98%B9%EC%8B%9C%20%EC%93%B0%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EC%9D%B4%EC%95%BC%EA%B8%B0%EA%B0%80%20%EC%9E%88%EB%8B%A4%EB%A9%B4%20%ED%95%9C%20%EC%A4%84%EB%A7%8C%20%EC%A0%81%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%20%28%EC%84%A0%ED%83%9D%29%20%3A%0A%0A%0A%E2%80%94%20%ED%99%95%EC%9D%B8%20%ED%9B%84%20%EC%95%88%EB%82%B4%20%EB%A9%94%EC%9D%BC%EC%9D%84%20%EB%B3%B4%EB%82%B4%EB%93%9C%EB%A6%AC%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4.%20%EC%B6%9C%ED%8C%90%EC%82%AC%20%EC%97%AC%EA%B8%B0%20%EB%93%9C%EB%A6%BC">
+          메일로 신청하기 <span class="arrow" aria-hidden="true">&#8594;</span>
+        </a>
+        <p class="apply-alt">
+          메일 앱이 열리지 않으면<br>
+          <a href="mailto:write.together@yeogi.press">write.together@yeogi.press</a> 로 보내주세요
+        </p>
+      </div>
+    </div>
+
+    <div class="honest reveal">
+      <h4>먼저 말씀드립니다</h4>
+      <ul>
+        <li>완주하면 드리는 것은 <strong>당신의 글을 묶은 전자책 파일</strong>입니다. 지금은 서점에 유통되는 책이 아닙니다. 서점 유통은 준비 중이고, 준비되면 가장 먼저 알려드리겠습니다.</li>
+        <li>쓴 글은 참가자님 휴대폰 안에 저장됩니다. 저희 서버로 가지 않습니다. 대신 휴대폰을 바꾸거나 브라우저 데이터를 지우면 사라지니, 2주에 한 번 백업 파일을 내려받는 법을 안내해 드립니다.</li>
+        <li>대화방에 올리는 것은 의무가 아닙니다. 다만 서로 읽어주는 일이 30일을 끝까지 가게 하는 가장 큰 힘이라고 생각합니다.</li>
+        <li>첫 기수라 저희도 처음입니다. 불편한 점은 바로 말씀해주세요. 다음 기수에 고치겠습니다.</li>
+      </ul>
+    </div>
+
+    <div class="faq reveal">
+      <details>
+        <summary>글을 잘 못 쓰는데 괜찮을까요?</summary>
+        <div class="ans">
+          <p>괜찮습니다. 이 프로젝트는 잘 쓰는 법을 가르치지 않습니다. 매일 쓰게 만드는 것이 전부입니다.</p>
+          <p>실제로 30일 뒤에 사람들이 가장 아끼는 글은 잘 쓴 글이 아니라, 그날 있었던 일을 그대로 적어둔 짧은 글인 경우가 많습니다. 세 줄이어도 됩니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>하루라도 빠지면 어떻게 되나요?</summary>
+        <div class="ans">
+          <p>아무 일도 일어나지 않습니다. 다음 날 이어서 쓰면 됩니다.</p>
+          <p>30일 내내 하루도 안 빠지는 사람은 드뭅니다. 목표는 완벽한 30일이 아니라, 30일이 지났을 때 손에 남는 글 뭉치입니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>제 글을 다른 사람이 꼭 봐야 하나요?</summary>
+        <div class="ans">
+          <p>아닙니다. 올리고 싶은 글만 올리시면 됩니다. 쓴 글은 전부 휴대폰 안에 남고, 그중 무엇을 대화방에 올릴지는 참가자님이 정합니다.</p>
+          <p>다만 아무것도 올리지 않으면 서로 읽어주는 경험은 얻기 어렵습니다. 그게 이 30일에서 가장 큰 부분이라고 생각합니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>사진이 없어도 되나요?</summary>
+        <div class="ans">
+          <p>됩니다. 사진은 선택입니다. 글만 있어도 책은 만들어집니다.</p>
+          <p>다만 그날 찍은 사진 한 장이 붙어 있으면, 나중에 그 글을 다시 읽을 때 기억이 훨씬 선명하게 돌아옵니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>전자책은 어떤 형태로 받나요?</summary>
+        <div class="ans">
+          <p>EPUB 파일로 메일에 첨부해 보내드립니다. 표지, 여는 글, 목차, 본문, 사진이 들어간 한 권입니다.</p>
+          <p>아이폰의 애플 북스, 안드로이드의 구글 플레이 북스, 리디북스 등 대부분의 전자책 앱에서 열립니다. 인쇄해서 종이책으로 만들고 싶으시면 따로 상의해 주세요.</p>
+        </div>
+      </details>
+      <details>
+        <summary>서점에서 살 수 있는 책이 되나요?</summary>
+        <div class="ans">
+          <p>이번 기수는 아닙니다. 솔직하게 말씀드리면, 서점 유통에 필요한 절차를 아직 밟는 중입니다.</p>
+          <p>대신 완주하신 분들의 글 중 일부를 모아 출판사 이름으로 책을 내는 것을 준비하고 있습니다. 그때는 반드시 본인 동의를 먼저 구하겠습니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>중간에 그만두면 환불이 되나요?</summary>
+        <div class="ans">
+          <p>시작 전에는 전액 환불해 드립니다.</p>
+          <p>시작한 뒤에는 메일로 알려주세요. 사정을 듣고 상의하겠습니다. 억지로 붙잡을 생각은 없습니다.</p>
+        </div>
+      </details>
+      <details>
+        <summary>컴퓨터로도 쓸 수 있나요?</summary>
+        <div class="ans">
+          <p>됩니다. 같은 주소를 컴퓨터 브라우저에서 열면 넓은 화면으로 쓸 수 있습니다.</p>
+          <p>다만 글은 각 기기에 따로 저장되기 때문에, 휴대폰과 컴퓨터를 오가며 쓰면 글이 나뉩니다. 한 기기를 정해 쓰시는 편을 권합니다.</p>
+        </div>
+      </details>
     </div>
   </section>
 
